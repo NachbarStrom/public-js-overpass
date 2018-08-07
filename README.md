@@ -17,6 +17,7 @@ nohup sudo yarn start src/server.js >>logs 2>>logs &
 yarn start src/server.js
 ````
 # Testing
+Currently runs only integrations tests*
 ```bash
 yarn test
 ```
