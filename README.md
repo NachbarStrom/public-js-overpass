@@ -5,7 +5,7 @@ export OVERPASS_URL=placeholder
 ````
 * Run the setup bash script:
 ````bash
-bash ./setup_ubuntu16.sh
+bash ./setup_ubuntu.sh
 ````
 ## Run the server
 * In detached mode:
