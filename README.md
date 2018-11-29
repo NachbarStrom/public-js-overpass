@@ -1,23 +1,29 @@
 ## Setup the environment
-* Setup the overpass url environment variable:
+* Setup your environment variables:
 ````bash
-export OVERPASS_URL=placeholder
+export OVERPASS_URL=url
+export REVERSE_CODING_KEY=key
+export REVERSE_CODING_URL=url
 ````
 * Run the setup bash script:
 ````bash
 bash ./setup_ubuntu.sh
 ````
 ## Run the server
-* In detached mode:
-````bash
-nohup sudo yarn start src/server.js >>logs 2>>logs &
-````
-* In attached mode:
+* Attached to the console:
 ````bash
 yarn start src/server.js
 ````
+* Detached from the console:
+````bash
+nohup sudo yarn start src/server.js >>logs 2>>logs &
+````
+* For development purposes (file changes trigger reload):
+```bash
+yarn dev
+```
 # Testing
-Currently runs only integrations tests*
+Runs the integration tests against the local machine, so the server must be up and running.
 ```bash
 yarn test
 ```
