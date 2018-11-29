@@ -9,12 +9,9 @@ const REVERSE_CODING_LATENCY_DESCRIPTOR = "Latency of reverse geocoding service"
 const getAddressAndGeojsonFromLatLng = async (lat, lng) => {
   const query = formatQuery(lat, lng);
   const response = await rp.get({ url: query, json: true});
-  if (!response.display_name) throw "display_name is missing";
-  if (!response.geojson) throw "geojson is missing";
-  return {
-    address: response.display_name,
-    geoJson: response.geojson,
-  };
+  const address = response.display_name ? response.display_name : "";
+  const geoJson = response.geojson ? response.geojson : [];
+  return { address, geoJson };
 };
 
 const formatQuery = (lat, lng) => (
