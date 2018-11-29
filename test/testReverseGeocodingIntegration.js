@@ -13,4 +13,17 @@ describe("The reverse geocoding endpoint", () => {
     expect(response.address).to.be.equal(TEST_HOUSE.address);
     expect(_.isEqual(response.geoJson, TEST_HOUSE.geoJson)).to.be.true;
   });
+
+  it("Informs me of the missing inputs", async () => {
+    try {
+      await rp.get(SERVER_URL);
+    } catch (e) {
+      const expectedMsg = "The required payload should have the format " +
+        "'{ lat: 12.3, lng: 4.56 }'";
+      expect(e.statusCode).to.be.equal(500);
+      expect(e.error).to.be.equal(expectedMsg);
+      return;
+    }
+    throw "A request with missing inputs did not throw an error";
+  })
 });

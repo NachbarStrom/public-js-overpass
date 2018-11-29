@@ -30,6 +30,11 @@ const formatQuery = (lat, lng) => (
 
 const reqResWrapper = async (req, res) => {
   const { lat, lng } = req.body;
+  const isAnInputMissing = !lat || !lng;
+  if (isAnInputMissing) {
+    res.status(500).send("The required payload should have the " +
+      "format '{ lat: 12.3, lng: 4.56 }'");
+  }
   try {
     console.time(REVERSE_CODING_LATENCY_DESCRIPTOR);
     const addressAndGeojson = await getAddressAndGeojsonFromLatLng(lat, lng);
