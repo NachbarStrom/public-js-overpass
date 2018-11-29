@@ -16,4 +16,5 @@ addErrorHandling(app);
 const port = process.env.PORT || 3000;
 app.listen(port);
 
-console.log('Overpass-service server started on: ' + port);
+console.log('Overpass service server started on: ' + port);
+console.log('Reverse geocoding service server started on: ' + port);

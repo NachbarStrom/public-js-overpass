@@ -12,7 +12,7 @@ describe("The server", () => {
       expect(geometryLength).to.be.equal(expectedGeometryLength);
       testIsDone();
     });
-  })
+  }).timeout(3000);
 });
 
 describe("The server", () => {
@@ -23,7 +23,7 @@ describe("The server", () => {
       testEachBuildingHasACorrespondingArea(body);
       testIsDone();
     });
-  })
+  }).timeout(3000);
 });
 
 const testNumBuildingsEqualsNumAreas = body => {
