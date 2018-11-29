@@ -4,6 +4,8 @@ const queryOverpass = require("query-overpass");
 const geojsonAreaCalculator = require("./geojsonAreaCalculator");
 const overpassUrl = process.env.OVERPASS_URL;
 
+const OVERPASS_LATENCY_DESCRIPTOR = "Latency of Overpass service";
+
 function getFormattedQuery(latitude, longitude, radius) {
   return `[out:json];
     (
@@ -18,9 +20,9 @@ exports.getRoofsPolygons = function (req, res) {
   const defaultRadiusInMeters = 5;
   const query = getFormattedQuery(coords.lat, coords.lon, defaultRadiusInMeters);
   const options = { overpassUrl };
-  console.time("queryOverpass");
+  console.time(OVERPASS_LATENCY_DESCRIPTOR);
   queryOverpass(query, function (error, geoJson) {
-    console.timeEnd("queryOverpass");
+    console.timeEnd(OVERPASS_LATENCY_DESCRIPTOR);
     if (error) {
       res.json(error);
     }
