@@ -4,7 +4,7 @@ const request = require("request");
 const apiUrl = "http://localhost:3000/roofs-polygons";
 const payload = { json: { lat: 48.181185, lon: 11.612054 } };
 
-describe("The server", () => {
+describe("The /roofs-polygons endpoint", () => {
   it("return polygons on call", testIsDone => {
     const expectedGeometryLength = 7;   // This particular house has seven vertices
     request.post(apiUrl, payload, (err, res, body) => {

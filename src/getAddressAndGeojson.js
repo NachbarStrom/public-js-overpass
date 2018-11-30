@@ -9,29 +9,27 @@ const REVERSE_CODING_LATENCY_DESCRIPTOR = "Latency of reverse geocoding service"
 const getAddressAndGeojsonFromLatLng = async (lat, lng) => {
   const query = formatQuery(lat, lng);
   const response = await rp.get({ url: query, json: true});
-  const address = response.display_name ? response.display_name : "";
-  const geoJson = response.geojson ? response.geojson : [];
+  const address = response.display_name !== undefined ? response.display_name : "";
+  const geoJson = response.geojson !== undefined ? response.geojson : null;
   return { address, geoJson };
 };
 
-const formatQuery = (lat, lng) => (
-  `${REVERSE_CODING_URL}` +
-  `?key=${REVERSE_CODING_KEY}` +
-  `&format=json` +
-  `&lat=${lat}` +
-  `&lon=${lng}` +
-  `&zoom=18` +
-  `&addressdetails=1` +
-  `&polygon_geojson=1`
-);
+const formatQuery = (lat, lng) => {
+  if (REVERSE_CODING_KEY === undefined) throw "REVERSE_CODING_KEY is undefined";
+  if (REVERSE_CODING_URL === undefined) throw "REVERSE_CODING_URL is undefined";
+  return (
+    `${REVERSE_CODING_URL}` +
+    `?key=${REVERSE_CODING_KEY}` +
+    `&format=json` +
+    `&lat=${lat}` +
+    `&lon=${lng}` +
+    `&zoom=18` +
+    `&addressdetails=1` +
+    `&polygon_geojson=1`
+)};
 
 const reqResWrapper = async (req, res) => {
-  const { lat, lng } = req.body;
-  const isAnInputMissing = !lat || !lng;
-  if (isAnInputMissing) {
-    res.status(500).send("The required payload should have the " +
-      "format '{ lat: 12.3, lng: 4.56 }'");
-  }
+  const { lat, lng } = req.params;
   try {
     console.time(REVERSE_CODING_LATENCY_DESCRIPTOR);
     const addressAndGeojson = await getAddressAndGeojsonFromLatLng(lat, lng);
