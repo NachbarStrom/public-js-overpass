@@ -5,7 +5,7 @@ const _ = require("lodash");
 const TEST_HOUSE = require("./testGetAddressAndGeojson").TEST_HOUSE;
 const SERVER_URL = "http://localhost:3000/reverse-geocoding";
 
-describe("The reverse geocoding endpoint", () => {
+describe("The endpoint '/reverse-geocoding'", () => {
   it("returns the address and geoJson of the place", async () => {
     const url = completeQuery(TEST_HOUSE.lat, TEST_HOUSE.lng);
     const response = await rp.get(url, { json: true });

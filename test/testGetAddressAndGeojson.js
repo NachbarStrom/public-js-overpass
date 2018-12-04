@@ -2,7 +2,7 @@ const expect = require("chai").expect;
 const api = require("../src/getAddressAndGeojson");
 const _ = require("lodash");
 
-describe("The getAddressFromLatLng function", async () => {
+describe("The getAddressFromLatLng() function", async () => {
   it("returns the address and geoJson of the place", async () => {
     const resp = await api.getAddressAndGeojsonFromLatLng(TEST_HOUSE.lat, TEST_HOUSE.lng);
     expect(resp.address).to.be.equal(TEST_HOUSE.address);

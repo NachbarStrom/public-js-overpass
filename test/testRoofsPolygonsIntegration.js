@@ -1,24 +1,25 @@
 const expect = require("chai").expect;
 const request = require("request");
 
-const apiUrl = "http://localhost:3000/roofs-polygons";
-const payload = { json: { lat: 48.181185, lon: 11.612054 } };
+const URL = "http://localhost:3000/roofs-polygons";
+const PARTICULAR_HOUSE = {
+  location: { lat: 48.181185, lon: 11.612054 },
+  geometryLength: 7,
+};
 
-describe("The /roofs-polygons endpoint", () => {
+describe("The endpoint '/roofs-polygons'", () => {
   it("return polygons on call", testIsDone => {
-    const expectedGeometryLength = 7;   // This particular house has seven vertices
-    request.post(apiUrl, payload, (err, res, body) => {
+    const payload = { json: PARTICULAR_HOUSE.location };
+    request.post(URL, payload, (err, res, body) => {
       const geometryLength = body.geoJson.features[0].geometry.coordinates[0].length;
-      expect(geometryLength).to.be.equal(expectedGeometryLength);
+      expect(geometryLength).to.be.equal(PARTICULAR_HOUSE.geometryLength);
       testIsDone();
     });
   }).timeout(3000);
-});
 
-describe("The server", () => {
   it("returns an area for each building", testIsDone => {
-    const payload = { json: { lat: 48.181185, lon: 11.612054 } };
-    request.post(apiUrl, payload, (err, res, body) => {
+    const payload = { json: PARTICULAR_HOUSE.location };
+    request.post(URL, payload, (err, res, body) => {
       testNumBuildingsEqualsNumAreas(body);
       testEachBuildingHasACorrespondingArea(body);
       testIsDone();
