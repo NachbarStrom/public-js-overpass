@@ -16,7 +16,7 @@ yarn start src/server.js
 ````
 * Detached from the console:
 ````bash
-nohup sudo yarn start src/server.js >>logs 2>>logs &
+nohup sudo --preserve-env yarn start src/server.js >>logs 2>>logs &
 ````
 * For development purposes (file changes trigger reload):
 ```bash

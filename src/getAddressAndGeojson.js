@@ -38,7 +38,8 @@ const reqResWrapper = async (req, res) => {
     console.timeEnd(REVERSE_CODING_LATENCY_DESCRIPTOR);
     res.json(addressAndGeojson);
   } catch (error) {
-    res.json(error);
+    console.log(error);
+    res.status(500).send("Internal server error");
   }
 };
 
