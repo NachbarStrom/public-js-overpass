@@ -2,8 +2,6 @@
 
 const rp = require("request-promise");
 
-const REVERSE_CODING_KEY = process.env.REVERSE_CODING_KEY;
-const REVERSE_CODING_URL = process.env.REVERSE_CODING_URL;
 const REVERSE_CODING_LATENCY_DESCRIPTOR = "Latency of reverse geocoding service";
 
 const getAddressAndGeojsonFromLatLng = async (lat, lng) => {
@@ -15,11 +13,15 @@ const getAddressAndGeojsonFromLatLng = async (lat, lng) => {
 };
 
 const formatQuery = (lat, lng) => {
-  if (REVERSE_CODING_KEY === undefined) throw "REVERSE_CODING_KEY is undefined";
-  if (REVERSE_CODING_URL === undefined) throw "REVERSE_CODING_URL is undefined";
+  const key = process.env.REVERSE_CODING_KEY;
+  if (key === undefined) throw "REVERSE_CODING_KEY is undefined";
+
+  const url = process.env.REVERSE_CODING_URL;
+  if (url === undefined) throw "REVERSE_CODING_URL is undefined";
+
   return (
-    `${REVERSE_CODING_URL}` +
-    `?key=${REVERSE_CODING_KEY}` +
+    `${url}` +
+    `?key=${key}` +
     `&format=json` +
     `&lat=${lat}` +
     `&lon=${lng}` +
